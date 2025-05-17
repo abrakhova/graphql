@@ -3,62 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>School Profile Dashboard</title>
-  <!-- Blank favicon to suppress 404 error -->
-  <link rel="icon" href="data:," />
-  <!-- Tailwind CSS -->
-  <link href="src/styles.css" rel="stylesheet">
-  <!-- D3.js for graphs -->
-  <script src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js"></script>
+  <title>Profile App</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="src/styles.css">
 </head>
-<body class="bg-gray-50">
-  <!-- Login Page -->
-  <div id="login-page" class="min-h-screen flex items-center justify-center">
-    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-      <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
-      <p id="login-error" class="text-red-500 mb-4 hidden"></p>
-      <div>
-        <div class="mb-4">
-          <label class="block text-gray-700">Username or Email</label>
-          <input id="login-input" type="text" class="w-full p-2 border rounded" required>
-        </div>
-        <div class="mb-6">
-          <label class="block text-gray-700">Password</label>
-          <input id="password-input" type="password" class="w-full p-2 border rounded" required>
-        </div>
-        <button id="login-button" class="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Login</button>
-      </div>
+<body class="min-h-screen flex items-center justify-center">
+  <!-- Login Section -->
+  <div id="login-section" class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+    <h1 class="text-2xl font-bold mb-6 text-center text-gray-800">
+      <i class="fas fa-sign-in-alt mr-2 text-teal-300"></i>Login
+    </h1>
+    <div class="space-y-4">
+      <input id="login-input" type="text" placeholder="Login" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-300">
+      <input id="password-input" type="password" placeholder="Password" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-300">
+      <button id="login-button" class="w-full bg-teal-300 text-white p-3 rounded-lg hover:bg-teal-400 transition">
+        Sign In
+      </button>
+      <p id="login-error" class="text-red-500 text-center hidden"></p>
     </div>
   </div>
 
-  <!-- Profile Page -->
-  <div id="profile-page" class="min-h-screen p-6 hidden">
-    <div class="max-w-4xl mx-auto">
-      <div class="flex justify-between items-center mb-6">
-        <h1 class="text-3xl font-bold">Profile Dashboard</h1>
-        <button id="logout-button" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Logout</button>
+  <!-- Profile Section -->
+  <div id="profile-section" class="hidden w-full max-w-6xl flex flex-col gap-6 p-6">
+    <!-- User Info Section -->
+    <div id="profile-info" class="bg-blue-200 p-6 rounded-lg shadow-lg text-gray-800">
+      <h2 class="text-2xl font-bold mb-4 text-white">
+        <i class="fas fa-user-circle mr-2"></i>User Profile
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div id="username" class="bg-blue-300 p-4 rounded-lg shadow"></div>
+        <div id="userid" class="bg-blue-300 p-4 rounded-lg shadow"></div>
+        <div id="audit-ratio" class="bg-blue-300 p-4 rounded-lg shadow"></div>
+        <div id="email" class="bg-blue-300 p-4 rounded-lg shadow"></div>
+        <div id="campus" class="bg-blue-300 p-4 rounded-lg shadow"></div>
+        <div id="nationality" class="bg-blue-300 p-4 rounded-lg shadow"></div>
+        <div id="fullname" class="bg-blue-300 p-4 rounded-lg shadow"></div>
+        <div id="total-xp" class="bg-blue-300 p-4 rounded-lg shadow"></div>
       </div>
-      <div id="profile-info" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-        <!-- Populated dynamically -->
-      </div>
-      <div class="bg-white p-6 rounded-lg shadow">
-        <h2 class="text-2xl font-semibold mb-4">Statistics</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <h3 class="text-lg font-semibold">XP Over Time</h3>
-            <svg id="xp-line-graph"></svg>
-          </div>
-          <div>
-            <h3 class="text-lg font-semibold">Project Pass/Fail Ratio</h3>
-            <svg id="pass-fail-pie"></svg>
-          </div>
-        </div>
-      </div>
+      <button id="logout-button" class="mt-4 bg-red-300 text-white p-3 rounded-lg hover:bg-red-400 transition">
+        Logout
+      </button>
+    </div>
+    <!-- XP Line Graph Section -->
+    <div class="bg-pink-200 p-6 rounded-lg shadow-lg">
+      <h2 class="text-2xl font-bold mb-4 text-white">
+        <i class="fas fa-chart-line mr-2"></i>XP Progression
+      </h2>
+      <div id="xp-graph"></div>
+    </div>
+    <!-- Skills Bar Chart Section -->
+    <div class="bg-green-100 p-6 rounded-lg shadow-lg">
+      <h2 class="text-2xl font-bold mb-4 text-white">
+        <i class="fas fa-chart-bar mr-2"></i>Skills
+      </h2>
+      <div id="skills-chart"></div>
     </div>
   </div>
 
-  <script type="module"src="src/queries.js"></script>
-  <script type="module"src="src/graphs.js"></script>
-  <script type="module"src="src/main.js"></script>
+  <script type="module" src="src/main.js"></script>
 </body>
 </html>

@@ -1,7 +1,33 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 body {
-  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom right, #fce7f3, #dbeafe);
+}
+
+.skill-bar {
+  fill: #c4b5fd; /* Pastel purple */
+}
+
+.skill-label, .skill-value {
+  font-size: 12px;
+  fill: #4b5563; /* Dark gray */
+}
+
+.chart-scroll-wrapper {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.chart-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #f8fafc; /* White for contrast */
+}
+
+.tooltip {
+  font-size: 12px;
+  fill: #4b5563;
+  background: #ffffff;
+  padding: 2px 5px;
+  border-radius: 3px;
 }
