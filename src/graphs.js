@@ -1,4 +1,4 @@
-function renderXPLineGraph(data) {
+export function renderXPLineGraph(data) {
   const svg = d3.select('#xp-line-graph').attr('width', 400).attr('height', 200);
   svg.selectAll('*').remove(); // Clear previous render
   const margin = { top: 20, right: 20, bottom: 30, left: 50 };
@@ -34,7 +34,7 @@ function renderXPLineGraph(data) {
     .call(d3.axisLeft(y).ticks(5));
 }
 
-function renderPassFailPieChart(passCount, failCount) {
+export function renderPassFailPieChart(passCount, failCount) {
   const svg = d3.select('#pass-fail-pie').attr('width', 200).attr('height', 200);
   svg.selectAll('*').remove(); // Clear previous render
   const radius = 100;
