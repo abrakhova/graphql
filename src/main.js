@@ -122,7 +122,8 @@ async function fetchAndDisplayXP(jwt) {
     }
 
     const filteredXP = transaction.filter(xp =>
-      (xp.path.startsWith('/gritlab/school-curriculum') && !xp.path.includes('/gritlab/school-curriculum/piscine-') && !xp.path.includes('/gritlab/school-curriculum/checkpoint'))
+        (xp.path.startsWith('/gritlab/school-curriculum') && !xp.path.includes('/gritlab/school-curriculum/piscine-')) ||
+        xp.path.endsWith('piscine-js')
     );
 
     const sortedXP = filteredXP.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
