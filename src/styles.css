@@ -1,14 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #0064AE;
+  --secondary: #FFD300;
+  --accent: #DB0F16;
+  --highlight: #ff99eb;
+  --background: #F5F5F5;
+  --card-background: #FFFFFF;
+  --text: #1E1E1E;
+  --text-light: #4A4A4A;
+  --hover: #00508A;
+}
+
 body {
-  background: linear-gradient(to bottom right, #fce7f3, #dbeafe);
-}
-
-.skill-bar {
-  fill: #c4b5fd; /* Pastel purple */
-}
-
-.skill-label, .skill-value {
-  font-size: 12px;
-  fill: #4b5563; /* Dark gray */
+  font-family: Arial, sans-serif;
 }
 
 .chart-scroll-wrapper {
@@ -17,17 +24,38 @@ body {
 }
 
 .chart-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
   text-align: center;
-  color: #f8fafc; /* White for contrast */
+  color: var(--text);
 }
 
-.tooltip {
+.skill-label {
+  font-size: 14px;
+  fill: var(--text);
+}
+
+.skill-value {
   font-size: 12px;
-  fill: #4b5563;
-  background: #ffffff;
-  padding: 2px 5px;
-  border-radius: 3px;
+  fill: var(--text);
+}
+
+#login-button:hover {
+  background-color: var(--hover) !important;
+}
+
+#logout-button:hover {
+  background-color: #b80c12 !important;
+}
+
+#xp-graph, #skills-chart {
+  background-color: transparent;
+}
+
+/* Custom Tailwind ring color */
+@layer utilities {
+  .focus\:ring-primary:focus {
+    --tw-ring-color: var(--primary);
+  }
 }

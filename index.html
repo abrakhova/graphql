@@ -11,54 +11,54 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="src/styles.css">
 </head>
-<body class="min-h-screen flex items-center justify-center">
+<body class="min-h-screen flex items-center justify-center" style="background-color: var(--background);">
   <!-- Login Section -->
-  <div id="login-section" class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
-    <h1 class="text-2xl font-bold mb-6 text-center text-gray-800">
-      <i class="fas fa-sign-in-alt mr-2 text-teal-300"></i>Login
+  <div id="login-section" class="p-8 rounded-lg shadow-lg max-w-md w-full" style="background-color: var(--highlight);">
+    <h1 class="text-2xl font-bold mb-6 text-center" style="color: var(--text);">
+      <i class="fas fa-sign-in-alt mr-2" style="color: var(--primary);"></i>Login
     </h1>
     <div class="space-y-4">
-      <input id="login-input" type="text" placeholder="Login" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-300">
-      <input id="password-input" type="password" placeholder="Password" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-300">
-      <button id="login-button" class="w-full bg-teal-300 text-white p-3 rounded-lg hover:bg-teal-400 transition">
+      <input id="login-input" type="text" placeholder="Login" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" style="border-color: var(--text-light);">
+      <input id="password-input" type="password" placeholder="Password" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" style="border-color: var(--text-light);">
+      <button id="login-button" class="w-full text-white p-3 rounded-lg transition" style="background-color: var(--primary);">
         Sign In
       </button>
-      <p id="login-error" class="text-red-500 text-center hidden"></p>
+      <p id="login-error" class="text-center hidden" style="color: var(--accent);"></p>
     </div>
   </div>
 
   <!-- Profile Section -->
   <div id="profile-section" class="hidden w-full max-w-6xl flex flex-col gap-6 p-6">
     <!-- User Info Section -->
-    <div id="profile-info" class="bg-blue-200 p-6 rounded-lg shadow-lg text-gray-800">
-      <h2 class="text-2xl font-bold mb-4 text-white">
-        <i class="fas fa-user-circle mr-2"></i>User Profile
+    <div id="profile-info" class="p-6 rounded-lg shadow-lg" style="background-color: var(--card-background);">
+      <h2 class="text-2xl font-bold mb-4" style="color: var(--text);">
+        <i class="fas fa-user-circle mr-2" style="color: var(--primary);"></i>User Profile
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div id="username" class="bg-blue-300 p-4 rounded-lg shadow"></div>
-        <div id="userid" class="bg-blue-300 p-4 rounded-lg shadow"></div>
-        <div id="audit-ratio" class="bg-blue-300 p-4 rounded-lg shadow"></div>
-        <div id="email" class="bg-blue-300 p-4 rounded-lg shadow"></div>
-        <div id="campus" class="bg-blue-300 p-4 rounded-lg shadow"></div>
-        <div id="nationality" class="bg-blue-300 p-4 rounded-lg shadow"></div>
-        <div id="fullname" class="bg-blue-300 p-4 rounded-lg shadow"></div>
-        <div id="total-xp" class="bg-blue-300 p-4 rounded-lg shadow"></div>
+        <div id="username" class="p-4 rounded-lg shadow" style="background-color: var(--highlight); color: var(--text);"></div>
+        <div id="userid" class="p-4 rounded-lg shadow" style="background-color: var(--highlight); color: var(--text);"></div>
+        <div id="audit-ratio" class="p-4 rounded-lg shadow" style="background-color: var(--highlight); color: var(--text);"></div>
+        <div id="email" class="p-4 rounded-lg shadow" style="background-color: var(--highlight); color: var(--text);"></div>
+        <div id="campus" class="p-4 rounded-lg shadow" style="background-color: var(--highlight); color: var(--text);"></div>
+        <div id="nationality" class="p-4 rounded-lg shadow" style="background-color: var(--highlight); color: var(--text);"></div>
+        <div id="fullname" class="p-4 rounded-lg shadow" style="background-color: var(--highlight); color: var(--text);"></div>
+        <div id="total-xp" class="p-4 rounded-lg shadow" style="background-color: var(--highlight); color: var(--text);"></div>
       </div>
-      <button id="logout-button" class="mt-4 bg-red-300 text-white p-3 rounded-lg hover:bg-red-400 transition">
+      <button id="logout-button" class="mt-4 text-white p-3 rounded-lg transition" style="background-color: var(--primary);">
         Logout
       </button>
     </div>
     <!-- XP Line Graph Section -->
-    <div class="bg-pink-200 p-6 rounded-lg shadow-lg">
-      <h2 class="text-2xl font-bold mb-4 text-white">
-        <i class="fas fa-chart-line mr-2"></i>XP Progression
+    <div class="p-6 rounded-lg shadow-lg" style="background-color: var(--card-background);">
+      <h2 class="text-2xl font-bold mb-4" style="color: var(--card-background);">
+        <i class="fas fa-chart-line mr-2" style="color: var(--card-background);"></i>XP Progression
       </h2>
       <div id="xp-graph"></div>
     </div>
     <!-- Skills Bar Chart Section -->
-    <div class="bg-green-100 p-6 rounded-lg shadow-lg">
-      <h2 class="text-2xl font-bold mb-4 text-white">
-        <i class="fas fa-chart-bar mr-2"></i>Skills
+    <div class="p-6 rounded-lg shadow-lg" style="background-color: var(--card-background);">
+      <h2 class="text-2xl font-bold mb-4" style="color: var(--text);">
+        <i class="fas fa-chart-bar mr-2" style="color: var(--text);"></i>Skills
       </h2>
       <div id="skills-chart"></div>
     </div>
