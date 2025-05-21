@@ -31,9 +31,14 @@
   <div id="profile-section" class="hidden w-full max-w-6xl flex flex-col gap-6 p-6">
     <!-- User Info Section -->
     <div id="profile-info" class="p-6 rounded-lg shadow-lg" style="background-color: var(--card-background);">
-      <h2 class="text-2xl font-bold mb-4" style="color: var(--text);">
-        <i class="fas fa-user-circle mr-2" style="color: var(--primary);"></i>User Profile
-      </h2>
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold" style="color: var(--text);">
+          <i class="fas fa-user-circle mr-2" style="color: var(--primary);"></i>User Profile
+        </h2>
+        <button id="logout-button" class="text-white px-4 py-2 rounded-lg transition sm:px-6 sm:py-3" style="background-color: var(--primary);">
+          Logout
+        </button>
+      </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div id="username" class="p-4 rounded-lg shadow" style="background-color: var(--highlight); color: var(--text);"></div>
         <div id="userid" class="p-4 rounded-lg shadow" style="background-color: var(--highlight); color: var(--text);"></div>
@@ -44,16 +49,13 @@
         <div id="audit-ratio" class="p-4 rounded-lg shadow" style="background-color: var(--highlight); color: var(--text);"></div>
         <div id="total-xp" class="p-4 rounded-lg shadow" style="background-color: var(--highlight); color: var(--text);"></div>
       </div>
-      <button id="logout-button" class="mt-4 text-white p-3 rounded-lg transition" style="background-color: var(--primary);">
-        Logout
-      </button>
     </div>
     <!-- XP Line Graph Section -->
     <div class="p-6 rounded-lg shadow-lg" style="background-color: var(--card-background);">
-    <h2 class="text-2xl font-bold mb-4 flex items-center" style="color: var(--text);">
-    <i class="fas fa-chart-line mr-2" style="color: var(--primary);"></i>XP Progression
-    </h2>
-   <div id="xp-graph"></div>
+      <h2 class="text-2xl font-bold mb-4 flex items-center" style="color: var(--text);">
+        <i class="fas fa-chart-line mr-2" style="color: var(--primary);"></i>XP Progression
+      </h2>
+      <div id="xp-graph"></div>
     </div>
     <!-- Skills Bar Chart Section -->
     <div class="p-6 rounded-lg shadow-lg" style="background-color: var(--card-background);">

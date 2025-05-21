@@ -175,10 +175,5 @@ document.getElementById('logout-button').addEventListener('click', () => {
   localStorage.removeItem('jwt');
   document.getElementById('profile-section').style.display = 'none';
   document.getElementById('login-section').style.display = 'block';
-  const loginError = document.getElementById('login-error');
-  if (loginError) {
-    loginError.textContent = 'Logged out successfully.';
-    loginError.style.display = 'block';
-    setTimeout(() => loginError.style.display = 'none', 2000);
-  }
+  window.location.reload(); // Reload page to clear inputs and profile details
 });
