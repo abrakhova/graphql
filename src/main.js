@@ -103,7 +103,7 @@ async function fetchAndDisplaySkills(jwt) {
       document.getElementById('skills-chart').innerHTML = '<p>No skills data available</p>';
       return;
     }
-    drawSkillsBarChart(skillTransactions, 'Skills', 'skills-chart');
+    drawSkillsBarChart(skillTransactions, 'skills-chart');
   } catch (err) {
     console.error('Error fetching skills:', err.message);
     document.getElementById('skills-chart').innerHTML = `<p>Error loading skills: ${err.message}</p>`;
@@ -121,33 +121,48 @@ async function fetchAndDisplayXP(jwt) {
       return;
     }
 
-    const filteredXP = transaction.filter(xp =>
-        (xp.path.startsWith('/gritlab/school-curriculum') && !xp.path.includes('/gritlab/school-curriculum/piscine-')) ||
-        xp.path.endsWith('piscine-js')
-    );
+    // Calculate total XP with the specified filter (includes checkpoints, excludes piscine except piscine-js)
+const totalXP = transaction
+  .filter(xp =>
+    (xp.path.startsWith('/gritlab/school-curriculum') && !xp.path.includes('/gritlab/school-curriculum/piscine-')) ||
+    xp.path.endsWith('piscine-js')
+  )
+  .reduce((sum, xp) => sum + (xp.amount || 0), 0);
+const totalKB = totalXP / 1000;
+document.getElementById('total-xp').textContent =
+  `Total XP: ${totalKB.toLocaleString(undefined, { maximumFractionDigits: 0 })} KB`;
 
-    const sortedXP = filteredXP.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+// Filter transactions for the graph (exclude checkpoints and piscine except piscine-js)
+const filteredXP = transaction.filter(xp =>
+  (xp.path.startsWith('/gritlab/school-curriculum') && 
+   !xp.path.includes('/gritlab/school-curriculum/checkpoint') && 
+   !xp.path.includes('/gritlab/school-curriculum/piscine-')) ||
+  xp.path.endsWith('piscine-js')
+);
 
-    const progression = [];
-    let cumulative = 0;
-    for (const xp of sortedXP) {
-      cumulative += xp.amount || 0;
-      progression.push({
-        amount: cumulative,
-        createdAt: xp.createdAt,
-        path: xp.path
-      });
-    }
-    const totalXP = cumulative;
-    const totalKB = totalXP / 1000;
-    document.getElementById('total-xp').textContent =
-      `Total XP: ${totalKB.toLocaleString(undefined, { maximumFractionDigits: 0 })} KB`;
-    if (progression.length > 0) {
-      drawXPLineGraph(progression, 'XP Progression', 'xp-graph');
-    } else {
-      console.warn('No valid XP progression data');
-      document.getElementById('xp-graph').innerHTML = '<p>No XP progression data available</p>';
-    }
+// Sort filtered transactions by date
+const sortedXP = filteredXP.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+
+// Build progression data for the graph
+const progression = [];
+let cumulative = 0;
+for (const xp of sortedXP) {
+  cumulative += xp.amount || 0;
+  progression.push({
+    cumulativeAmount: cumulative, // For graph y-axis
+    projectAmount: xp.amount || 0, // For tooltip
+    createdAt: xp.createdAt,
+    path: xp.path
+  });
+}
+
+// Draw graph or show warning
+if (progression.length > 0) {
+  drawXPLineGraph(progression, 'xp-graph');
+} else {
+  console.warn('No valid XP progression data');
+  document.getElementById('xp-graph').innerHTML = '<p>No XP progression data available</p>';
+}
   } catch (err) {
     console.error('Error fetching XP:', err.message);
     document.getElementById('xp-graph').innerHTML = `<p>Error loading XP: ${err.message}</p>`;
