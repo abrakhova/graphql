@@ -78,11 +78,12 @@ export async function fetchAndDisplayUserInfo(jwt) {
 
     document.getElementById('username').textContent = `Username: ${user.login || 'Unknown'}`;
     document.getElementById('userid').textContent = `User ID: ${user.id || 'Unknown'}`;
+    document.getElementById('nationality').textContent = `Nationality: ${user.attrs?.nationality || 'Unknown'}`;
+    document.getElementById('fullname').textContent = `Full name: ${(user.firstName || '') + ' ' + (user.lastName || '')}`;
     document.getElementById('audit-ratio').textContent = `Audit Ratio: ${user.auditRatio ? (user.auditRatio * 1).toFixed(1) : '0'}`;
     document.getElementById('email').textContent = `Email: ${user.attrs?.email || 'Unknown'}`;
     document.getElementById('campus').textContent = `Campus: ${user.campus || 'Unknown'}`;
-    document.getElementById('nationality').textContent = `Nationality: ${user.attrs?.nationality || 'Unknown'}`;
-    document.getElementById('fullname').textContent = `Full name: ${(user.firstName || '') + ' ' + (user.lastName || '')}`;
+    
     await Promise.all([
       fetchAndDisplayXP(jwt),
       fetchAndDisplaySkills(jwt)
@@ -122,47 +123,47 @@ async function fetchAndDisplayXP(jwt) {
     }
 
     // Calculate total XP with the specified filter (includes checkpoints, excludes piscine except piscine-js)
-const totalXP = transaction
-  .filter(xp =>
-    (xp.path.startsWith('/gritlab/school-curriculum') && !xp.path.includes('/gritlab/school-curriculum/piscine-')) ||
-    xp.path.endsWith('piscine-js')
-  )
-  .reduce((sum, xp) => sum + (xp.amount || 0), 0);
-const totalKB = totalXP / 1000;
-document.getElementById('total-xp').textContent =
-  `Total XP: ${totalKB.toLocaleString(undefined, { maximumFractionDigits: 0 })} KB`;
+    const totalXP = transaction
+      .filter(xp =>
+        (xp.path.startsWith('/gritlab/school-curriculum') && !xp.path.includes('/gritlab/school-curriculum/piscine-')) ||
+        xp.path.endsWith('piscine-js')
+      )
+      .reduce((sum, xp) => sum + (xp.amount || 0), 0);
+    const totalKB = totalXP / 1000;
+    document.getElementById('total-xp').textContent =
+      `Total XP: ${totalKB.toLocaleString(undefined, { maximumFractionDigits: 0 })} KB`;
 
-// Filter transactions for the graph (exclude checkpoints and piscine except piscine-js)
-const filteredXP = transaction.filter(xp =>
-  (xp.path.startsWith('/gritlab/school-curriculum') && 
-   !xp.path.includes('/gritlab/school-curriculum/checkpoint') && 
-   !xp.path.includes('/gritlab/school-curriculum/piscine-')) ||
-  xp.path.endsWith('piscine-js')
-);
+    // Filter transactions for the graph (exclude checkpoints and piscine except piscine-js)
+    const filteredXP = transaction.filter(xp =>
+      (xp.path.startsWith('/gritlab/school-curriculum') &&
+        !xp.path.includes('/gritlab/school-curriculum/checkpoint') &&
+        !xp.path.includes('/gritlab/school-curriculum/piscine-')) ||
+      xp.path.endsWith('piscine-js')
+    );
 
-// Sort filtered transactions by date
-const sortedXP = filteredXP.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+    // Sort filtered transactions by date
+    const sortedXP = filteredXP.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 
-// Build progression data for the graph
-const progression = [];
-let cumulative = 0;
-for (const xp of sortedXP) {
-  cumulative += xp.amount || 0;
-  progression.push({
-    cumulativeAmount: cumulative, // For graph y-axis
-    projectAmount: xp.amount || 0, // For tooltip
-    createdAt: xp.createdAt,
-    path: xp.path
-  });
-}
+    // Build progression data for the graph
+    const progression = [];
+    let cumulative = 0;
+    for (const xp of sortedXP) {
+      cumulative += xp.amount || 0;
+      progression.push({
+        cumulativeAmount: cumulative, // For graph y-axis
+        projectAmount: xp.amount || 0, // For tooltip
+        createdAt: xp.createdAt,
+        path: xp.path
+      });
+    }
 
-// Draw graph or show warning
-if (progression.length > 0) {
-  drawXPLineGraph(progression, 'xp-graph');
-} else {
-  console.warn('No valid XP progression data');
-  document.getElementById('xp-graph').innerHTML = '<p>No XP progression data available</p>';
-}
+    // Draw graph or show warning
+    if (progression.length > 0) {
+      drawXPLineGraph(progression, 'xp-graph');
+    } else {
+      console.warn('No valid XP progression data');
+      document.getElementById('xp-graph').innerHTML = '<p>No XP progression data available</p>';
+    }
   } catch (err) {
     console.error('Error fetching XP:', err.message);
     document.getElementById('xp-graph').innerHTML = `<p>Error loading XP: ${err.message}</p>`;
