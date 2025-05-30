@@ -140,7 +140,7 @@ export function drawSkillsBarChart(skillsData, containerId = "skills-chart") {
 
     const svgNS = "http://www.w3.org/2000/svg";
     const barHeight = 25, gap = 10, width = 800;
-    const height = Math.min(sortedSkills.length * (barHeight + gap), 600);
+    const height = Math.max(sortedSkills.length * (barHeight + gap), 600);
     const maxSkill = 100;
 
     const svg = document.createElementNS(svgNS, "svg");
